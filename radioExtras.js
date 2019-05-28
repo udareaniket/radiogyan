@@ -258,5 +258,5 @@ function computeTirads(fromDiv) {
 		noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
 		noduleUl.appendChild(noduleLi);
 	}
-	solution.appendChild(noduleUl);
+	//solution.appendChild(noduleUl);
 }
