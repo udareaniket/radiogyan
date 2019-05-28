@@ -91,7 +91,7 @@ function computeTirads(fromDiv) {
 	var header = document.createElement("h3");
 	var headText = document.createTextNode("Findings:");
 	header.appendChild(headText);
-	solution.appendChild(header);
+	//solution.appendChild(header);
 	var noduleUl = document.createElement("ul");
 	noduleUl.style = "list-style-type:none;padding: 0 0 0 0.75rem;";
 	for (var number = 0; number < noduleList.length; number++) {
