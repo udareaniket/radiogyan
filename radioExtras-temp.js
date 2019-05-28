@@ -57,9 +57,9 @@ function clearTirads() {
 	result4.style = "opacity:0.2";
 }
 function computeSize(){
-	var size0 = parseInt(document.getElementsByName('size0')[0].value);
-	var size1 = parseInt(document.getElementsByName('size1')[0].value);
-	var size2 = parseInt(document.getElementsByName('size2')[0].value);
+	var size0 = parseFloat(document.getElementsByName('size0')[0].value);
+	var size1 = parseFloat(document.getElementsByName('size1')[0].value);
+	var size2 = parseFloat(document.getElementsByName('size2')[0].value);
 	var highestSize = Math.max(size0,size1,size2);
 	var twofive = document.getElementById('twofive');
 	var onefive1 = document.getElementById('onefive1');
@@ -76,15 +76,15 @@ function computeSize(){
 	if(highestSize>=2.5){
 		twofive.style="display:inline-block";
 	}
-	else if(highestSize>=1.5){
+	if(highestSize>=1.5){
 		onefive1.style="display:inline-block";
 		onefive2.style="display:inline-block";
 	}
-	else if(highestSize>=1){
+	if(highestSize>=1){
 		one1.style="display:inline-block";
 		one2.style="display:inline-block";
 	}
-	else if(highestSize>=1){
+	if(highestSize>=0.5){
 		zeroFive.style="display:inline-block";
 	}
 	
