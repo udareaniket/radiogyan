@@ -136,8 +136,6 @@ function computeTirads(fromDiv) {
 	var header = document.createElement("h3");
 	var headText = document.createTextNode("Findings:");
 	header.appendChild(headText);
-	document.getElementById('total').innerHTML = total;
-	document.getElementById('finalScore').style = "display:flex";
 	//solution.appendChild(header);
 	var noduleUl = document.createElement("ul");
 	noduleUl.style = "list-style-type:none;padding: 0 0 0 0.75rem;";
@@ -304,6 +302,8 @@ function computeTirads(fromDiv) {
 		noduleLi.appendChild(recommendationDiv);
 		noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
 		noduleUl.appendChild(noduleLi);
+		document.getElementById('total').innerHTML = noduleList[number].total;
+		document.getElementById('finalScore').style = "display:flex";
 	}
 	
 	//solution.appendChild(noduleUl);
