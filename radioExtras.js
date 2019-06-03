@@ -4,11 +4,17 @@ jQuery(document).ready(function($) {
 	});
 });
 jQuery(document).ready(function($) {
+	$('.computeSize').bind("change", function() {
+		computeSize();
+	});
+});
+jQuery(document).ready(function($) {
 	$('.addTirads').bind("click", function() {
 		addNodule();
 	});
 });
 jQuery(document).ready(function($) {
+	clearTirads();
 	$('.clearTirads').bind("click", function() {
 		clearTirads();
 	});
@@ -27,9 +33,52 @@ function clearTirads() {
 	noduleList = [];
 	document.getElementById("tirads").reset();
 	document.getElementById("solution").innerHTML = "";
+	var result0 = document.getElementById('idresult0');
+	var result1 = document.getElementById('idresult1');
+	var result2 = document.getElementById('idresult2');
+	var result3 = document.getElementById('idresult3');
+	var result4 = document.getElementById('idresult4');
+	result0.style = "opacity:0.2";
+	result1.style = "opacity:0.2";
+	result2.style = "opacity:0.2";
+	result3.style = "opacity:0.2";
+	result4.style = "opacity:0.2";
+	document.getElementById('finalScore').style = "display:none";
+}
+function computeSize(){
+	var size0 = parseFloat(document.getElementsByName('size0')[0].value);
+	var size1 = parseFloat(document.getElementsByName('size1')[0].value);
+	var size2 = parseFloat(document.getElementsByName('size2')[0].value);
+	var highestSize = Math.max(size0,size1,size2);
+	var twofive = document.getElementById('twofive');
+	var onefive1 = document.getElementById('onefive1');
+	var onefive2 = document.getElementById('onefive2');
+	var one = document.getElementById('one1');
+	var one2 = document.getElementById('one2');
+	var zeroFive = document.getElementById('zeroFive');
+	
+	twofive.style="display:none";
+	onefive1.style="display:none";
+	onefive2.style="display:none";
+	one1.style="display:none";
+	one2.style="display:none";
+	if(highestSize>=2.5){
+		twofive.style="display:inline-block";
+	}
+	if(highestSize>=1.5){
+		onefive1.style="display:inline-block";
+		onefive2.style="display:inline-block";
+	}
+	if(highestSize>=1){
+		one1.style="display:inline-block";
+		one2.style="display:inline-block";
+	}
+	if(highestSize>=0.5){
+		zeroFive.style="display:inline-block";
+	}
+	
 }
 function computeTirads(fromDiv) {
-	console.log(fromDiv);
 	if (parseInt(fromDiv) > 3) {
 		// document.getElementById('tiradsDiv'+fromDiv).scrollIntoView({
 		// behavior: 'smooth', });
@@ -45,10 +94,6 @@ function computeTirads(fromDiv) {
 		foci : []
 	};
 	var total = 0;
-	nodule.size0 = document.getElementsByName('size0')[0].value;
-	nodule.size1 = document.getElementsByName('size1')[0].value;
-	nodule.size2 = document.getElementsByName('size2')[0].value;
-	console.log(nodule);
 	var comp = document.getElementsByName('comp');
 	for (var i = 0; i < comp.length; i++) {
 		if (comp[i].checked) {
@@ -91,6 +136,8 @@ function computeTirads(fromDiv) {
 	var header = document.createElement("h3");
 	var headText = document.createTextNode("Findings:");
 	header.appendChild(headText);
+	document.getElementById('total').innerHTML = total;
+	document.getElementById('finalScore').style = "display:flex";
 	//solution.appendChild(header);
 	var noduleUl = document.createElement("ul");
 	noduleUl.style = "list-style-type:none;padding: 0 0 0 0.75rem;";
@@ -258,5 +305,6 @@ function computeTirads(fromDiv) {
 		noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
 		noduleUl.appendChild(noduleLi);
 	}
+	
 	//solution.appendChild(noduleUl);
 }
