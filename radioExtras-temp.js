@@ -43,6 +43,7 @@ function clearTirads() {
 	result2.style = "opacity:0.2";
 	result3.style = "opacity:0.2";
 	result4.style = "opacity:0.2";
+	document.getElementById('finalScore').style = "display:none";
 }
 function computeSize(){
 	var size0 = parseFloat(document.getElementsByName('size0')[0].value);
