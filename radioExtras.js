@@ -19,6 +19,9 @@ jQuery(document).ready(function($) {
 		clearTirads();
 	});
 });
+jQuery(document).ready(function ($) {
+	console.log($('[data-toggle="tooltip"]'))
+	})
 var currentNodule = 0;
 var noduleList = [];
 function addNodule() {
@@ -136,9 +139,20 @@ function computeTirads(fromDiv) {
 	var header = document.createElement("h3");
 	var headText = document.createTextNode("Findings:");
 	header.appendChild(headText);
-	//solution.appendChild(header);
+	solution.appendChild(header);
+	var resultLeftRight = document.createElement("div");
+	resultLeftRight.classList.add("row");
+	resultLeftRight.classList.add("card-body");
+	resultLeftRight.style = "border: 1px solid #bee5eb;border-radius: .25rem;";
+	var resultLeft = document.createElement("div");
 	var noduleUl = document.createElement("ul");
-	noduleUl.style = "list-style-type:none;padding: 0 0 0 0.75rem;";
+	resultLeft.classList.add("col-md-8");
+	resultLeft.classList.add("col-sm-12");
+	var resultRight = document.createElement("div");
+	resultRight.classList.add("col-md-4");
+	resultRight.classList.add("col-sm-12");
+	noduleUl.style = "list-style-type:none;";
+	noduleUl.classList.add("list-group");
 	for (var number = 0; number < noduleList.length; number++) {
 		var noduleLi = document.createElement("li");
 		if (new String(noduleList[number].comp).valueOf() === new String(
@@ -156,7 +170,9 @@ function computeTirads(fromDiv) {
 			var spongText = document
 					.createTextNode("Warning! For a spongiform nodule, no other features contribute points!");
 			spongDiv.appendChild(spongText);
-			spongDiv.style = "border: 1px solid transparent;border-radius: .25rem;padding: .75rem 1.25rem;background-color:#fff3cd;color:#856404;border-color: #f5c6cb;";
+			spongDiv.classList.add('alert');
+			spongDiv.classList.add('alert-warning');
+			//spongDiv.style = "border: 1px solid transparent;border-radius: .25rem;padding: .75rem 1.25rem;background-color:#fff3cd;color:#856404;border-color: #f5c6cb;";
 			noduleLi.appendChild(spongDiv);
 		} else if (new String(noduleList[number].echo).valueOf() === new String(
 				"Anechoic (0 points)").valueOf()) {
@@ -192,28 +208,107 @@ function computeTirads(fromDiv) {
 		result2.style = "opacity:0.2";
 		result3.style = "opacity:0.2";
 		result4.style = "opacity:0.2";
+		//= showResult(noduleList[number].total);
 		if (noduleList[number].total == 0) {
 			cat = "TIRADS Category 1: Benign";
 			recommendation = "No FNA";
 			result0.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, green);' role='alert'>"+
+				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR1</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Benign</strong></li>" +
+					"<li>No FNA</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total > 0
 				&& noduleList[number].total <= 2) {
 			cat = "TIRADS Category 2: Not Suspicious";
 			recommendation = "No FNA";
 			result1.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, yellow)' role='alert'>"+
+				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR2</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Not Suspicious</strong></li>" +
+					"<li>No FNA</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total == 3) {
 			cat = "TIRADS Category 3: Mildly Suspicious";
 			recommendation = "If >2.5cm: FNA; If >1.5cm: Follow up at 1,3,5 years";
 			result2.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, orange)' role='alert'>"+
+				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR3</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Mildly Suspicious</strong></li>" +
+					"<li>FNA if > 2.5cm</li>" +
+					"<li>Follow if > 1.5cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total >= 4
 				&& noduleList[number].total <= 6) {
 			cat = "TIRADS Category 4: Moderately Suspicious";
 			recommendation = "If >1.5cm: FNA; If >1cm: Follow up at 1,3,5 years";
 			result3.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, #ff9800)' role='alert'>"+
+				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR4</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Moderately Suspicious</strong></li>" +
+					"<li>FNA if > 1.5cm</li>" +
+					"<li>Follow if > 1cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total >= 7) {
 			cat = "TIRADS Category 5: Highly Suspicious";
 			recommendation = "If >1cm: FNA; If >0.5cm: Follow annually for 5 years";
 			result4.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, red)' role='alert'>"+
+				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR5</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Highly Suspicious</strong></li>" +
+					"<li>FNA if > 1cm</li>" +
+					"<li>Follow if > 0.5cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		}
 		var catText = document.createTextNode("" + cat);
 		categoryDiv.appendChild(catText);
@@ -300,11 +395,123 @@ function computeTirads(fromDiv) {
 				+ recommendation);
 		recommendationDiv.appendChild(recommendationText);
 		noduleLi.appendChild(recommendationDiv);
-		noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
+		//noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
 		noduleUl.appendChild(noduleLi);
 		document.getElementById('total').innerHTML = noduleList[number].total;
 		document.getElementById('finalScore').style = "display:flex";
 	}
-	
-	//solution.appendChild(noduleUl);
+	resultLeft.appendChild(noduleUl);
+	resultLeftRight.appendChild(resultLeft);
+	console.log(resultRight);
+	var resultRightText = document.createTextNode(resultRight.innerHtml);
+	//resultRight.appendChild(resultRight);
+	resultLeftRight.appendChild(resultRight);
+	console.log(resultLeftRight);
+	solution.appendChild(resultLeftRight);
+}
+function showResult(total){
+    var returnDiv = "";
+   console.log(parseInt(total))
+	if(0 == parseInt(total)){
+		
+	}
+   console.log(returnDiv)
+	return returnDiv;
+	/*<div class="row text-center">
+	<div id="idresult0" class="col-md col-sm-12 mb-3"
+		style="opacity: 0.2;">
+		<div class="alert"
+			style="height: 100%; background-image: linear-gradient(white, green);"
+			role="alert">
+			<ul style="list-style-type: none; margin: 0; padding: 0;">
+				<li>
+					<h4 style="margin: 0;">
+						<strong>TR1</strong>
+					</h4>
+				</li>
+				<li><strong>Benign</strong></li>
+				<li>No FNA</li>
+			</ul>
+		</div>
+	</div>
+	<div id="idresult1" class="col-md col-sm-12 mb-3"
+		style="opacity: 0.2;">
+		<div class="alert"
+			style="height: 100%; background-image: linear-gradient(white, yellow);"
+			role="alert">
+			<ul style="list-style-type: none; margin: 0; padding: 0;">
+				<li>
+					<h4 style="margin: 0;">
+						<strong>TR2</strong>
+					</h4>
+				</li>
+				<li><strong>Not Suspicious</strong></li>
+				<li>No FNA</li>
+			</ul>
+		</div>
+	</div>
+	<div id="idresult2" class="col-md col-sm-12 mb-3"
+		style="opacity: 0.2;">
+		<div class="alert"
+			style="height: 100%; background-image: linear-gradient(white, orange);"
+			role="alert">
+			<ul style="list-style-type: none; margin: 0; padding: 0;">
+				<li>
+					<h4 style="margin: 0;">
+						<strong>TR3</strong>
+					</h4>
+				</li>
+				<li><strong>Mildly Suspicious</strong></li>
+				<li>
+					<div>FNA if &gt; 2.5cm</div>
+				</li>
+				<li>
+					<div>Follow if &gt; 1.5cm</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="idresult3" class="col-md col-sm-12 mb-3"
+		style="opacity: 0.2;">
+		<div class="alert"
+			style="height: 100%; background-image: linear-gradient(white, #ff9800);"
+			role="alert">
+			<ul style="list-style-type: none; margin: 0; padding: 0;">
+				<li>
+					<h4 style="margin: 0;">
+						<strong>TR4</strong>
+					</h4>
+				</li>
+				<li><strong>Moderately Suspicious</strong></li>
+				<li>
+					<div>FNA if &gt; 1.5cm</div>
+				</li>
+				<li>
+					<div>Follow if &gt; 1cm</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="idresult4" class="col-md col-sm-12 mb-3"
+		style="opacity: 0.2;">
+		<div class="alert"
+			style="height: 100%; background-image: linear-gradient(white, red);"
+			role="alert">
+			<ul style="list-style-type: none; margin: 0; padding: 0;">
+				<li>
+					<h4 style="margin: 0;">
+						<strong>TR5</strong>
+					</h4>
+				</li>
+				<li><strong>Highly Suspicious</strong></li>
+				<li>
+					<div>FNA if &gt; 1cm</div>
+				</li>
+				<li>
+					<div>Follow if &gt; 0.5cm</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>*/
 }
