@@ -151,7 +151,7 @@ function computeTirads(fromDiv) {
 	var resultRight = document.createElement("div");
 	resultRight.classList.add("col-md-4");
 	resultRight.classList.add("col-sm-12");
-	noduleUl.style = "list-style-type:none;";
+	noduleUl.style = "list-style-type:none;margin:0;";
 	noduleUl.classList.add("list-group");
 	for (var number = 0; number < noduleList.length; number++) {
 		var noduleLi = document.createElement("li");
@@ -186,8 +186,8 @@ function computeTirads(fromDiv) {
 		var noduleDiv = document.createElement("div");
 		var noduleText = document.createTextNode('Nodule '
 				+ parseInt(number + 1) + ': ');
-		noduleDiv.appendChild(noduleText);
-		noduleDiv.style = "font-weight:bold;";
+		//noduleDiv.appendChild(noduleText);
+		//noduleDiv.style = "font-weight:bold;";
 		noduleLi.appendChild(noduleDiv);
 		var totalScoreDiv = document.createElement("div");
 		var totalText = document.createTextNode("TIRADS Score: "
@@ -217,7 +217,7 @@ function computeTirads(fromDiv) {
 				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
 			"<div class='alert'" +
 				"style='height: 100%; background-image: linear-gradient(white, green);' role='alert'>"+
-				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+				"<ul class='list-group' style='margin:0;text-align: center;list-style-type: none;'>"+
 					"<li>" +
 						"<h4 style='margin:0'>" +
 							"<strong>TR1</strong>" +
@@ -237,7 +237,7 @@ function computeTirads(fromDiv) {
 				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
 			"<div class='alert'" +
 				"style='height: 100%; background-image: linear-gradient(white, yellow)' role='alert'>"+
-				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
 					"<li>" +
 						"<h4 style='margin:0'>" +
 							"<strong>TR2</strong>" +
@@ -256,7 +256,7 @@ function computeTirads(fromDiv) {
 				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
 			"<div class='alert'" +
 				"style='height: 100%; background-image: linear-gradient(white, orange)' role='alert'>"+
-				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
 					"<li>" +
 						"<h4 style='margin:0'>" +
 							"<strong>TR3</strong>" +
@@ -277,7 +277,7 @@ function computeTirads(fromDiv) {
 				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
 			"<div class='alert'" +
 				"style='height: 100%; background-image: linear-gradient(white, #ff9800)' role='alert'>"+
-				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
 					"<li>" +
 						"<h4 style='margin:0'>" +
 							"<strong>TR4</strong>" +
@@ -297,7 +297,7 @@ function computeTirads(fromDiv) {
 				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
 			"<div class='alert'" +
 				"style='height: 100%; background-image: linear-gradient(white, red)' role='alert'>"+
-				"<ul class='list-group' style='text-align: center;list-style-type: none;'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
 					"<li>" +
 						"<h4 style='margin:0'>" +
 							"<strong>TR5</strong>" +
@@ -336,9 +336,9 @@ function computeTirads(fromDiv) {
 		var sizeLi = document.createElement("li");
 		var sizeLiText = "Size: " + sizeText + ".";
 		var sizeLiText2 = document.createTextNode("" + sizeLiText);
-		sizeLi.appendChild(sizeLiText2);
+		//sizeLi.appendChild(sizeLiText2);
 		if (sizeText.length > 0) {
-			innerUl.appendChild(sizeLi);
+			//innerUl.appendChild(sizeLi);
 		}
 		var compLi = document.createElement("li");
 		var comp = "Composition: " + noduleList[number].comp + ".";
