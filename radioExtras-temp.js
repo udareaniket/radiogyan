@@ -144,16 +144,14 @@ function computeTirads(fromDiv) {
 		if (comp[i].checked) {
 			total += parseInt(comp[i].value);
 			nodule.comp = (comp[i].alt);
+			var scrollToSolition = document.getElementById('solution');
 			if("Cystic or almost completely cystic (0 points)" === (nodule.comp)){
 				cysticSelected = true;
 				echoCard.style = "opacity:0.2";
 				shapeCard.style = "opacity:0.2";
 				marginCard.style = "opacity:0.2";
 				fociCard.style = "opacity:0.2";
-				var scrollToSolition = document.getElementById('solution');
-				window.scrollTo(
-						{
-							  top: scrollToSolition.offsetTop,
+				window.scrollTo({top: scrollToSolition.offsetTop,
 							  left: scrollToSolition.offsetLeft,
 							  behavior: 'smooth'
 							});
@@ -163,6 +161,10 @@ function computeTirads(fromDiv) {
 				shapeCard.style = "opacity:0.2";
 				marginCard.style = "opacity:0.2";
 				fociCard.style = "opacity:0.2";
+				window.scrollTo({top: scrollToSolition.offsetTop,
+					  left: scrollToSolition.offsetLeft,
+					  behavior: 'smooth'
+					});
 			}else{
 				echoCard.style = "opacity:1";
 				shapeCard.style = "opacity:1";
