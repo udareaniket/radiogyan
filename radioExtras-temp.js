@@ -42,6 +42,7 @@ function clearTirads() {
 	var result3 = document.getElementById('idresult3');
 	var result4 = document.getElementById('idresult4');
 	var comp = document.getElementsByName('comp');
+	var compCard = document.getElementById('compCard');
 	var echo = document.getElementsByName('echo');
 	var echoCard = document.getElementById('echoCard');
 	var shape = document.getElementsByName('shape');
@@ -72,6 +73,12 @@ function clearTirads() {
 		foci[i].disabled = false;
 	}
 	document.getElementById('finalScore').style = "display:none";
+	window.scrollTo(
+			{
+				  top: compCard.offsetTop,
+				  left: compCard.offsetLeft,
+				  behavior: 'smooth'
+				});
 }
 function computeSize(){
 	var size0 = parseFloat(document.getElementsByName('size0')[0].value);
@@ -143,7 +150,13 @@ function computeTirads(fromDiv) {
 				shapeCard.style = "opacity:0.2";
 				marginCard.style = "opacity:0.2";
 				fociCard.style = "opacity:0.2";
-				//document.getElementById('solution').scrollIntoView();
+				var scrollToSolition = document.getElementById('solution');
+				window.scrollTo(
+						{
+							  top: scrollToSolition.offsetTop,
+							  left: scrollToSolition.offsetLeft,
+							  behavior: 'smooth'
+							});
 			}else if("Spongiform (0 points)" === nodule.comp){
 				spongiSelected = true;
 				echoCard.style = "opacity:0.2";
