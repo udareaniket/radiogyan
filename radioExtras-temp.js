@@ -19,6 +19,9 @@ jQuery(document).ready(function($) {
 		clearTirads();
 	});
 });
+jQuery(document).ready(function ($) {
+	console.log($('[data-toggle="tooltip"]'))
+	})
 var currentNodule = 0;
 var noduleList = [];
 function addNodule() {
@@ -38,11 +41,36 @@ function clearTirads() {
 	var result2 = document.getElementById('idresult2');
 	var result3 = document.getElementById('idresult3');
 	var result4 = document.getElementById('idresult4');
+	var comp = document.getElementsByName('comp');
+	var echo = document.getElementsByName('echo');
+	var echoCard = document.getElementById('echoCard');
+	var shape = document.getElementsByName('shape');
+	var shapeCard = document.getElementById('shapeCard');
+	var margin = document.getElementsByName('margin');
+	var marginCard = document.getElementById('marginCard');
+	var foci = document.getElementsByName('foci');
+	var fociCard = document.getElementById('fociCard');
 	result0.style = "opacity:0.2";
 	result1.style = "opacity:0.2";
 	result2.style = "opacity:0.2";
 	result3.style = "opacity:0.2";
 	result4.style = "opacity:0.2";
+	echoCard.style = "opacity:1";
+	shapeCard.style = "opacity:1";
+	marginCard.style = "opacity:1";
+	fociCard.style = "opacity:1";
+	for (var i = 0; i < echo.length; i++) {
+			echo[i].disabled = false;
+	}
+	for (var i = 0; i < shape.length; i++) {
+		shape[i].disabled = false;
+	}
+	for (var i = 0; i < margin.length; i++) {
+		margin[i].disabled = false;
+	}
+	for (var i = 0; i < foci.length; i++) {
+		foci[i].disabled = false;
+	}
 	document.getElementById('finalScore').style = "display:none";
 }
 function computeSize(){
@@ -95,38 +123,88 @@ function computeTirads(fromDiv) {
 	};
 	var total = 0;
 	var comp = document.getElementsByName('comp');
+	var echo = document.getElementsByName('echo');
+	var echoCard = document.getElementById('echoCard');
+	var shape = document.getElementsByName('shape');
+	var shapeCard = document.getElementById('shapeCard');
+	var margin = document.getElementsByName('margin');
+	var marginCard = document.getElementById('marginCard');
+	var foci = document.getElementsByName('foci');
+	var fociCard = document.getElementById('fociCard');
+	var cysticSelected = false;
+	var spongiSelected = false;
 	for (var i = 0; i < comp.length; i++) {
 		if (comp[i].checked) {
 			total += parseInt(comp[i].value);
 			nodule.comp = (comp[i].alt);
+			if("Cystic or almost completely cystic (0 points)" === (nodule.comp)){
+				cysticSelected = true;
+				echoCard.style = "opacity:0.2";
+				shapeCard.style = "opacity:0.2";
+				marginCard.style = "opacity:0.2";
+				fociCard.style = "opacity:0.2";
+				//document.getElementById('solution').scrollIntoView();
+			}else if("Spongiform (0 points)" === nodule.comp){
+				spongiSelected = true;
+				echoCard.style = "opacity:0.2";
+				shapeCard.style = "opacity:0.2";
+				marginCard.style = "opacity:0.2";
+				fociCard.style = "opacity:0.2";
+			}else{
+				echoCard.style = "opacity:1";
+				shapeCard.style = "opacity:1";
+				marginCard.style = "opacity:1";
+				fociCard.style = "opacity:1";
+			}
 		}
 	}
-	var echo = document.getElementsByName('echo');
 	for (var i = 0; i < echo.length; i++) {
-		if (echo[i].checked) {
-			total += parseInt(echo[i].value);
-			nodule.echo = (echo[i].alt);
+		if(cysticSelected == true || spongiSelected ==true){
+			echo[i].disabled = true;
+			echo[i].checked = false;
+		}else{
+			echo[i].disabled = false;
+			if (echo[i].checked) {
+				total += parseInt(echo[i].value);
+				nodule.echo = (echo[i].alt);
+			}
 		}
+		
 	}
-	var shape = document.getElementsByName('shape');
 	for (var i = 0; i < shape.length; i++) {
+		if(cysticSelected == true || spongiSelected ==true){
+			shape[i].disabled = true;
+			shape[i].checked = false;
+		}else{
+			shape[i].disabled = false;
 		if (shape[i].checked) {
 			total += parseInt(shape[i].value);
 			nodule.shape = (shape[i].alt);
 		}
+		}
 	}
-	var margin = document.getElementsByName('margin');
 	for (var i = 0; i < margin.length; i++) {
+		if(cysticSelected == true || spongiSelected ==true){
+			margin[i].disabled = true;
+			margin[i].checked = false;
+		}else{
+			margin[i].disabled = false;
 		if (margin[i].checked) {
 			total += parseInt(margin[i].value);
 			nodule.margin = (margin[i].alt);
 		}
+		}
 	}
-	var foci = document.getElementsByName('foci');
 	for (var i = 0; i < foci.length; i++) {
+		if(cysticSelected == true || spongiSelected ==true){
+			foci[i].disabled = true;
+			foci[i].checked = false;
+		}else{
+			foci[i].disabled = false;
 		if (foci[i].checked) {
 			total += parseInt(foci[i].value);
 			nodule.foci.push(foci[i].alt);
+		}
 		}
 	}
 	nodule.total = total;
@@ -136,9 +214,20 @@ function computeTirads(fromDiv) {
 	var header = document.createElement("h3");
 	var headText = document.createTextNode("Findings:");
 	header.appendChild(headText);
-	//solution.appendChild(header);
+	solution.appendChild(header);
+	var resultLeftRight = document.createElement("div");
+	resultLeftRight.classList.add("row");
+	resultLeftRight.classList.add("card-body");
+	resultLeftRight.style = "border: 1px solid #bee5eb;border-radius: .25rem;";
+	var resultLeft = document.createElement("div");
 	var noduleUl = document.createElement("ul");
-	noduleUl.style = "list-style-type:none;padding: 0 0 0 0.75rem;";
+	resultLeft.classList.add("col-md-8");
+	resultLeft.classList.add("col-sm-12");
+	var resultRight = document.createElement("div");
+	resultRight.classList.add("col-md-4");
+	resultRight.classList.add("col-sm-12");
+	noduleUl.style = "list-style-type:none;margin:0;";
+	noduleUl.classList.add("list-group");
 	for (var number = 0; number < noduleList.length; number++) {
 		var noduleLi = document.createElement("li");
 		if (new String(noduleList[number].comp).valueOf() === new String(
@@ -156,7 +245,9 @@ function computeTirads(fromDiv) {
 			var spongText = document
 					.createTextNode("Warning! For a spongiform nodule, no other features contribute points!");
 			spongDiv.appendChild(spongText);
-			spongDiv.style = "border: 1px solid transparent;border-radius: .25rem;padding: .75rem 1.25rem;background-color:#fff3cd;color:#856404;border-color: #f5c6cb;";
+			spongDiv.classList.add('alert');
+			spongDiv.classList.add('alert-warning');
+			//spongDiv.style = "border: 1px solid transparent;border-radius: .25rem;padding: .75rem 1.25rem;background-color:#fff3cd;color:#856404;border-color: #f5c6cb;";
 			noduleLi.appendChild(spongDiv);
 		} else if (new String(noduleList[number].echo).valueOf() === new String(
 				"Anechoic (0 points)").valueOf()) {
@@ -170,8 +261,8 @@ function computeTirads(fromDiv) {
 		var noduleDiv = document.createElement("div");
 		var noduleText = document.createTextNode('Nodule '
 				+ parseInt(number + 1) + ': ');
-		noduleDiv.appendChild(noduleText);
-		noduleDiv.style = "font-weight:bold;";
+		//noduleDiv.appendChild(noduleText);
+		//noduleDiv.style = "font-weight:bold;";
 		noduleLi.appendChild(noduleDiv);
 		var totalScoreDiv = document.createElement("div");
 		var totalText = document.createTextNode("TIRADS Score: "
@@ -192,28 +283,107 @@ function computeTirads(fromDiv) {
 		result2.style = "opacity:0.2";
 		result3.style = "opacity:0.2";
 		result4.style = "opacity:0.2";
+		//= showResult(noduleList[number].total);
 		if (noduleList[number].total == 0) {
 			cat = "TIRADS Category 1: Benign";
 			recommendation = "No FNA";
 			result0.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, green);' role='alert'>"+
+				"<ul class='list-group' style='margin:0;text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR1</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Benign</strong></li>" +
+					"<li>No FNA</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total > 0
 				&& noduleList[number].total <= 2) {
 			cat = "TIRADS Category 2: Not Suspicious";
 			recommendation = "No FNA";
 			result1.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, yellow)' role='alert'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR2</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Not Suspicious</strong></li>" +
+					"<li>No FNA</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total == 3) {
 			cat = "TIRADS Category 3: Mildly Suspicious";
 			recommendation = "If >2.5cm: FNA; If >1.5cm: Follow up at 1,3,5 years";
 			result2.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, orange)' role='alert'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR3</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Mildly Suspicious</strong></li>" +
+					"<li>FNA if > 2.5cm</li>" +
+					"<li>Follow if > 1.5cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total >= 4
 				&& noduleList[number].total <= 6) {
 			cat = "TIRADS Category 4: Moderately Suspicious";
 			recommendation = "If >1.5cm: FNA; If >1cm: Follow up at 1,3,5 years";
 			result3.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, #ff9800)' role='alert'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR4</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Moderately Suspicious</strong></li>" +
+					"<li>FNA if > 1.5cm</li>" +
+					"<li>Follow if > 1cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		} else if (noduleList[number].total >= 7) {
 			cat = "TIRADS Category 5: Highly Suspicious";
 			recommendation = "If >1cm: FNA; If >0.5cm: Follow annually for 5 years";
 			result4.style = "opacity:1.0";
+			resultRight.innerHTML  = 
+				"<div id='idresult0' style='width:100%;padding:0' class='col-md col-sm-12 mb-3'>" +
+			"<div class='alert'" +
+				"style='height: 100%; background-image: linear-gradient(white, red)' role='alert'>"+
+				"<ul class='list-group' style='margin:0; text-align: center;list-style-type: none;'>"+
+					"<li>" +
+						"<h4 style='margin:0'>" +
+							"<strong>TR5</strong>" +
+						"</h4>" +
+					"</li>" +
+					"<li><strong>Highly Suspicious</strong></li>" +
+					"<li>FNA if > 1cm</li>" +
+					"<li>Follow if > 0.5cm</li>" +
+				"</ul>" +
+			"</div>" +
+			"</div>"
 		}
 		var catText = document.createTextNode("" + cat);
 		categoryDiv.appendChild(catText);
@@ -241,9 +411,9 @@ function computeTirads(fromDiv) {
 		var sizeLi = document.createElement("li");
 		var sizeLiText = "Size: " + sizeText + ".";
 		var sizeLiText2 = document.createTextNode("" + sizeLiText);
-		sizeLi.appendChild(sizeLiText2);
+		//sizeLi.appendChild(sizeLiText2);
 		if (sizeText.length > 0) {
-			innerUl.appendChild(sizeLi);
+			//innerUl.appendChild(sizeLi);
 		}
 		var compLi = document.createElement("li");
 		var comp = "Composition: " + noduleList[number].comp + ".";
@@ -300,11 +470,17 @@ function computeTirads(fromDiv) {
 				+ recommendation);
 		recommendationDiv.appendChild(recommendationText);
 		noduleLi.appendChild(recommendationDiv);
-		noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
+		//noduleLi.style = "padding: 0.75rem 1.25rem;border: 1px solid #bee5eb;border-radius: .25rem;margin-top: 1rem;";
 		noduleUl.appendChild(noduleLi);
 		document.getElementById('total').innerHTML = noduleList[number].total;
 		document.getElementById('finalScore').style = "display:flex";
 	}
-	
-	//solution.appendChild(noduleUl);
+	resultLeft.appendChild(noduleUl);
+	resultLeftRight.appendChild(resultLeft);
+	console.log(resultRight);
+	var resultRightText = document.createTextNode(resultRight.innerHtml);
+	//resultRight.appendChild(resultRight);
+	resultLeftRight.appendChild(resultRight);
+	console.log(resultLeftRight);
+	solution.appendChild(resultLeftRight);
 }
