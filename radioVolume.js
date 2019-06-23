@@ -32,7 +32,8 @@ jQuery(document)
 									.toFixed(3);
 							$('#totalVolume').html(result);
 							document.getElementById('totalVolume').value = result;
-							copy();
+							//copy();
+							$('#copyButton').prop("disabled", false);
 						}
 
 					}
@@ -45,6 +46,6 @@ jQuery(document)
 						$('#copyAlert').css('display', 'inline-block');
 						setTimeout(function() {
 							$('#copyAlert').css('display', 'none');
-						}, 1000);
+						}, 500);
 					}
 				});
