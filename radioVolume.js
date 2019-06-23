@@ -15,11 +15,11 @@ jQuery(document)
 					});
 					$('[data-toggle="tooltip"]').tooltip();
 					function volume() {
-						var firstValue = Number($('#first').val());
-						var secondValue = Number($('#second').val())
-						var thirdValue = Number($('#third').val());
+						var length = Number($('#length').val());
+						var breadth = Number($('#breadth').val())
+						var width = Number($('#width').val());
 						var multiplier = 0.5;
-						if (!(firstValue == 0 || secondValue == 0 || thirdValue == 0)) {
+						if (!(length == 0 || breadth == 0 || width == 0)) {
 							if (document.getElementById('genericId').checked
 									|| document.getElementById('renalId').checked) {
 								multiplier = 0.523;
@@ -28,8 +28,8 @@ jQuery(document)
 							} else if (document.getElementById('testicularId').checked) {
 								multiplier = 0.71;
 							}
-							var result = ((firstValue * secondValue
-									* thirdValue * multiplier)).toFixed(3);
+							var result = ((length * breadth * width * multiplier))
+									.toFixed(3);
 							$('#totalVolume').html(result);
 							document.getElementById('totalVolume').value = result;
 							copy();
@@ -41,5 +41,10 @@ jQuery(document)
 						copy.select();
 						document.execCommand("copy");
 						$('totalVolume').blur();
+						$('#container').toast('show');
+						$('#copyAlert').css('display', 'inline-block');
+						setTimeout(function() {
+							$('#copyAlert').css('display', 'none');
+						}, 1000);
 					}
 				});
