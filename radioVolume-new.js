@@ -48,7 +48,7 @@ jQuery(document)
 							var result = ((length * breadth * width * multiplier))
 									.toFixed(3);
 							$('#totalVolume').html(result);
-							document.getElementById('totalVolume').value = result;
+							document.getElementById('totalVolume').value = result + ' cc';
 							$('#copyButton').prop("disabled", false);
 						}
 
