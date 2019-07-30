@@ -32,6 +32,9 @@ jQuery(document)
 						} else if (document.getElementById('prostateId').checked) {
 							document.getElementById('selectedType').innerHTML = 'Prostate Volume';
 							multiplier = 0.523;
+						} else if (document.getElementById('thyroidId').checked) {
+							document.getElementById('selectedType').innerHTML = 'Thyroid Volume';
+							multiplier = 0.523;
 						}
 						volume();
 					}
