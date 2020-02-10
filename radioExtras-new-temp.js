@@ -73,12 +73,7 @@ function clearTirads() {
 		foci[i].disabled = false;
 	}
 	document.getElementById('finalScore').style = "display:none";
-	window.scrollTo(
-			{
-				  top: compCard.offsetTop,
-				  left: compCard.offsetLeft,
-				  behavior: 'smooth'
-				});
+	location.hash = "#tirads-calculator";
 }
 function computeSize(){
 	var size0 = parseFloat(document.getElementsByName('size0')[0].value);
